@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# This classpath should be modified to reflect where your libraries are on your machine.
+
+CPATH_HOME=bin:/usr/java/junit/junit-4.12/junit-4.12.jar:/usr/java/hamcrest/hamcrest-all-1.3/hamcrest-all-1.3.jar:/usr/java/log4j/log4j-1.2.17/log4j-1.2.17.jar
+
+CPATH_SCHOOL=bin:/bham/pd/packages/java/1.8.0/lib/junit-4.12.jar:/bham/pd/packages/java/1.8.0/lib/hamcrest-core-1.3.jar:/bham/pd/packages/java/1.8.0/lib/log4j-1.2.17.jar
+
+CPATH=${CPATH_HOME}
+
+Klasses=""
+
+# for each test class file pathname (pathname ending in "Test.class")
+# in any subdirectory of bin:
+for fn in `find bin -name '*Test.class'`
+do
+  # set fn1 to be the pathname without the .class suffix:
+  fn1=${fn%.class}   
+
+  # set fn2 to be the name without the initial "bin/":
+  fn2=${fn1#bin/}
+
+  # set fn3 to be the name with all "/"s replaced with "."
+  fn3=${fn2//\//.}
+
+  # append the resulting java fully qualified class name to the list of classes
+  Klasses="${Klasses} ${fn3}"
+done
+echo ${Klasses}
+
+# Run the JUnit runner on all the test classes:
+java -cp ${CPATH} org.junit.runner.JUnitCore ${Klasses}

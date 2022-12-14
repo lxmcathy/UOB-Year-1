@@ -1,0 +1,1 @@
+Sample Code based on that taken from Martin Fowler, "Refactoring --- Improving the Design of Existing Code", Addison Wesley, 1999

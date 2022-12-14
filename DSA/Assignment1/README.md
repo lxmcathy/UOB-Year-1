@@ -1,0 +1,2 @@
+The Assignment Description can be found in **aassignment-01.pdf**  
+They are also available inside the folder dsa_assignment1, along with the necessary Java project directory for the assignment in the dsa_2020 GIT repository: https://git.cs.bham.ac.uk/aps/dsa-2020

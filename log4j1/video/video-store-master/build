@@ -1,0 +1,35 @@
+#!/bin/bash
+
+
+# CPATH_HOME should be modified to reflect where your libraries are on
+# your home machine or laptop
+
+CPATH_HOME=bin:/usr/java/junit/junit-4.12/junit-4.12.jar:/usr/java/hamcrest/hamcrest-all-1.3/hamcrest-all-1.3.jar:/usr/java/log4j/log4j-1.2.17/log4j-1.2.17.jar
+
+CPATH_SCHOOL=bin:/bham/pd/packages/java/1.8.0/lib/junit-4.12.jar:/bham/pd/packages/java/1.8.0/lib/hamcrest-core-1.3.jar:/bham/pd/packages/java/1.8.0/lib/log4j-1.2.17.jar
+
+# switch this between CPATH_HOME and CPATH_SCHOOL depending on where
+# your libraries are
+CPATH=${CPATH_HOME}
+
+for i in ${CPATH//:/ }
+do
+    if [ ! -e $i ]
+    then
+        echo Error: cannot find library $i on this computer. Fix your classpath in this file.
+    fi
+done
+
+rm -rf bin
+mkdir bin
+cp ./src/main/java/log4j.properties bin
+
+SPATH=src/main/java:src/test/java
+
+# For each .java file in any sub-directory of the ${SPATH} directories
+# after substituting every ":" in ${SPATH} with a " "
+for i in `find ${SPATH//:/ } -name '*.java'`
+do
+    # compile the file, with debug information and put the result in
+    javac -g:source,lines,vars -d bin -sourcepath ${SPATH} -cp ${CPATH} $i
+done
